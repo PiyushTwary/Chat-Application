@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+    {% load static %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div class="bg">
+    <div class="parent">
+        <div class="child-2">
+            <center><h2 class="ubuntu-bold">Chats</h2></center> 
+            <div class="chat-body-parent">
+                <div class="chat-body" id="tasks">
+                    <div class="message">
+                        {%for i in messages%}
+                                {% if i.sender != user %}
+                                <div class="receive">
+                                    <p style="color: #000;"><strong>{{i.sender}}</strong></p>
+                                    <p style="color: #000;">{{i.message}}</p>
+                                </div>
+                                {%else%}
+                                <div class="send">
+                                    <p style="color: #000;">{{i.message}}</p>
+                                </div>
+                                {%endif%}
+                        {%endfor%}        
+                    </div>
+                    <div class="form">
+                        <form action="" id="message" method="POST">
+                            {% csrf_token %}
+                            <textarea id="msg" cols="30" name="message" rows="10" placeholder="Enter your message" required></textarea>
+                            <button class="submit" type="submit">Send</button>
+                        </form>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+        * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    }
+    .bg{
+    background-image: url("/static/chat.jpg");
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    }
+    .ubuntu-bold {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    }
+    .parent {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        /* background-image: url("/static/img/bck.jpg");  */
+       
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: cover; 
+        align-items: center;
+        width: 100%;
+    }
+
+    .child-1 {
+        /* height: 70vh; */
+        width: 30%;
+        margin: 10px;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    .chat-room {
+        width: 100%;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background-color: #fff;
+        border: 1px solid dodgerblue;
+    }
+    .chat-room h3 {
+        color: #000;
+    }
+
+    .chat-room h3 {
+        background-color: gray;
+        padding: 10px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .chat-room h3 a {
+        text-decoration: none;
+        color: white;
+    }
+
+
+    .child-2 {
+        width: 50%;
+        margin: 10px;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #39c513;
+    }
+
+    .chat-body-parent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .chat-body, .message {
+        width: 100%;
+        background-color: #659DBD;
+        border-radius: 10px;
+        display: flex;      
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    .chat-body .message .receive, .send {
+        background-color: #25af10;
+        max-width: 400px;
+       
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .send:hover {
+        padding: 15px;
+        transition: 0.8s;
+    }
+
+    .receive:hover {
+        padding: 15px;
+        transition: 0.8s;
+    }
+
+    .chat-body .message .send {
+        align-self: flex-end;
+    }
+
+    .chat-body .message .receive {
+        align-self: flex-start;
+    }
+
+    form {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    form textarea {
+        width: 70%;
+        height: 40px;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    form button {
+        width: 25%;
+        padding: 10px;
+        background-color: #DAAD86;
+        border-radius: 5px;
+        border: none;
+        color: #fff;
+    }
+</style>
+<script src="{% static 'script.js' %}"></script>
+</html>
